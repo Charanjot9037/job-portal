@@ -1,20 +1,10 @@
 
-// 'use client';
-
-// import React, { useEffect, useState } from "react";
+// "use client";
 // import { Provider } from "react-redux";
 // import { PersistGate } from "redux-persist/integration/react";
 // import { store, persistor } from "@/redux/persistedStore";
 
 // export default function ProvidersWrapper({ children }) {
-//   const [isClient, setIsClient] = useState(false);
-
-//   useEffect(() => {
-//     setIsClient(true);
-//   }, []);
-
-//   if (!isClient) return null;
-
 //   return (
 //     <Provider store={store}>
 //       <PersistGate loading={null} persistor={persistor}>
@@ -24,11 +14,22 @@
 //   );
 // }
 "use client";
+import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@/redux/persistedStore";
 
 export default function ProvidersWrapper({ children }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null; // 🛑 avoids SSR mismatch
+  }
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
