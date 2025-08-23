@@ -106,7 +106,7 @@ import applicationSlice from "./applicationslice.js";
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "./storage"; // 👈 import safe storage
+import storage from "@/redux/storage.js"; // 👈 import safe storage
 const rootReducer = combineReducers({
   auth: authSlice,
   job: jobSlice,
@@ -115,11 +115,13 @@ const rootReducer = combineReducers({
 });
 
 
+
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"], // only persist needed reducers
+  whitelist: ["auth"], // reducers you want to persist
 };
+
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
