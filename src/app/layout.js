@@ -1,10 +1,12 @@
 
+// import { Providers } from "./provider.js";
 // import { Geist, Geist_Mono } from "next/font/google";
 // import "./globals.css";
-// import Navbar from  './components/shared/Navbar.jsx';
+// import Navbar from "./components/shared/Navbar.jsx";
 // import { Toaster } from "react-hot-toast";
-
+// import ProvidersWrapper from "@/app/providers/ProvidersWrapper"; // 👈 updated import
 // import ProgressBar from "./components/progressbar";
+
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
 //   subsets: ["latin"],
@@ -23,33 +25,23 @@
 // export default function RootLayout({ children }) {
 //   return (
 //     <html lang="en">
-   
-    
-  
-    
-     
-//       <body
-//         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-//       >
-//            <Providers>
-//           <ProgressBar/>
-//   <Navbar/>
-//         {children}
-//         </Providers>
+//       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+//         <ProvidersWrapper>
+          
+//           <ProgressBar />
+//           <Navbar />
+//           <Toaster position="top-center" />
+//           {children}
+//         </ProvidersWrapper>
 //       </body>
-
-    
-      
 //     </html>
 //   );
 // }
-// app/layout.js
-import { Providers } from "./provider.js";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/shared/Navbar.jsx";
 import { Toaster } from "react-hot-toast";
-import ProvidersWrapper from "@/app/providers/ProvidersWrapper"; // 👈 updated import
+import ProvidersWrapper from "@/app/providers/ProvidersWrapper"; 
 import ProgressBar from "./components/progressbar";
 
 const geistSans = Geist({
@@ -72,7 +64,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ProvidersWrapper>
-          
           <ProgressBar />
           <Navbar />
           <Toaster position="top-center" />

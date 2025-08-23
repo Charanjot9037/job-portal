@@ -1,10 +1,10 @@
-// // app/providers/ProvidersWrapper.js or components/ProvidersWrapper.js
-// "use client";
 
-// import { useState, useEffect } from "react";
+// 'use client';
+
+// import React, { useEffect, useState } from "react";
 // import { Provider } from "react-redux";
 // import { PersistGate } from "redux-persist/integration/react";
-// import { store, persistor } from "@/redux/persistedStore"; // 👈 use the persisted version
+// import { store, persistor } from "@/redux/persistedStore";
 
 // export default function ProvidersWrapper({ children }) {
 //   const [isClient, setIsClient] = useState(false);
@@ -13,7 +13,7 @@
 //     setIsClient(true);
 //   }, []);
 
-//   if (!isClient) return null; // avoid SSR issues
+//   if (!isClient) return null;
 
 //   return (
 //     <Provider store={store}>
@@ -22,21 +22,25 @@
 //       </PersistGate>
 //     </Provider>
 //   );
-'use client';
+// }
+"use client";
 
-import React, { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@/redux/persistedStore";
+import { useEffect, useState } from "react";
 
 export default function ProvidersWrapper({ children }) {
-  const [isClient, setIsClient] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    setMounted(true);
   }, []);
 
-  if (!isClient) return null;
+  if (!mounted) {
+    // Render children without PersistGate during SSR
+    return <Provider store={store}>{children}</Provider>;
+  }
 
   return (
     <Provider store={store}>
