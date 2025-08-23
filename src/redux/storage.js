@@ -17,26 +17,15 @@
 // };
 
 // export default storage;
-// storage.js
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
-
-const createNoopStorage = () => {
-  return {
-    getItem(_key) {
-      return Promise.resolve(null);
-    },
-    setItem(_key, value) {
-      return Promise.resolve(value);
-    },
-    removeItem(_key) {
-      return Promise.resolve();
-    },
-  };
-};
 
 const storage =
   typeof window !== "undefined"
-    ? createWebStorage("local") // client: use localStorage
-    : createNoopStorage();      // server: fake storage
+    ? createWebStorage("local")
+    : {
+        getItem: () => Promise.resolve(null),
+        setItem: (_key, value) => Promise.resolve(value),
+        removeItem: () => Promise.resolve(),
+      };
 
 export default storage;
