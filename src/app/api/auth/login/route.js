@@ -8,7 +8,7 @@ export async function POST(req) {
     const { email, password} = await req.json();
 
     if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password and role is required ' }, { status: 400 });
+      return NextResponse.json({ error: 'Email and password is required ' }, { status: 400 });
     }
 
     await connectDB();
@@ -22,10 +22,7 @@ export async function POST(req) {
     if (!isMatch) {
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
     }
-    // if(role!= user.role){
-    //       return NextResponse.json({ error: 'this role is not valid' }, { status: 401 });
-    // }
-
+   
    let currentUser={
     _id:user._id,
     fullname:user.fullname,

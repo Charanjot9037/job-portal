@@ -13,7 +13,6 @@ if(!fullname||!email||!password||!phonenumber||!role){
 }
 
 
-multer
 //   const storage = multer.memoryStorage();
 // const singleUpload = multer({storage}).single("file");
   await connectDB();
