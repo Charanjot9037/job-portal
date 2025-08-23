@@ -9,9 +9,10 @@ const Applicant = (id) => {
   console.log(id.id);
   const dispatch=useDispatch();
 
-const {applicants}=useSelector(store=>store.Application);
-console.log(setAllApplicants);
+const {applicants}=useSelector(store=>store.application);
 
+console.log(setAllApplicants);
+console.log(applicants)
 useEffect(()=>{
 const fecthapplicants=async()=>{
     try {

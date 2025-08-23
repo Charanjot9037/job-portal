@@ -139,7 +139,7 @@ import { motion } from 'framer-motion';
 
 const ApplicantsTable = () => {
   const sortlist = ["Accepted", "Rejected"];
-  const { applicants } = useSelector(store => store.Application);
+  const { applicants } = useSelector(store => store.application);
 
   const statushandler = async (status, id) => {
     try {
