@@ -183,7 +183,7 @@ const ApplicantsTable = () => {
           </TableHeader>
           <TableBody>
             {
-              applicants?.application.map((item) => (
+              applicants?.application?.map((item) => (
                 <motion.tr
                   key={item._id}
                   initial={{ opacity: 0, scale: 0.95 }}
