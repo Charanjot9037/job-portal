@@ -13,11 +13,13 @@ const Jobsdescriptions = ({ id }) => {
   const { singleJob } = useSelector((store) => store.job);
   const { User } = useSelector((store) => store.auth);
   const [isApplied, setisApplied] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 const router=useRouter();
 
 
   // Apply Handler
   const applyjobhandler = async () => {
+     setIsLoading(true);
     try {
       const res = await fetch(`/api/auth/applyjob/${id}`, {
         method: "POST",
@@ -47,6 +49,8 @@ const router=useRouter();
     } catch (error) {
       console.error("Apply job error:", error);
       toast.error(error.message || "Failed to apply for the job");
+    }finally{
+       setIsLoading(false);
     }
   };
 
@@ -134,18 +138,36 @@ const router=useRouter();
           </div>
         </div>
 
-        <motion.button
+        {/* <motion.button
           onClick={applyjobhandler}
           disabled={isApplied}
           whileTap={{ scale: 0.96 }}
           className={`w-full md:w-auto px-6 py-2 rounded-2xl text-white font-semibold transition-all duration-300 ${
             isApplied
               ? "bg-gray-500 cursor-not-allowed"
-              : "bg-[#6A38c2] hover:bg-[#8158aa]"
+              : "bg-[#6A38c2] hover:bg-[#170e20]"
           }`}
         >
           {isApplied ? "Applied" : "Apply Now"}
-        </motion.button>
+        </motion.button> */}
+        <motion.button
+      onClick={applyjobhandler}
+      disabled={isApplied || isLoading}
+      whileTap={{ scale: 0.96 }}
+      className={`w-full md:w-[200px] px-6 py-2 rounded-2xl text-white font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
+        isApplied || isLoading
+          ? "bg-gray-500 cursor-not-allowed"
+          : "bg-[#6A38c2] hover:bg-[#8158aa]"
+      }`}
+    >
+      {isLoading ? (
+        <span className="w-5 h-5  border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+      ) : isApplied ? (
+        "Applied"
+      ) : (
+        "Apply Now"
+      )}
+    </motion.button>
       </div>
 
       {/* Divider */}
@@ -161,7 +183,7 @@ const router=useRouter();
       {/* Job Detail Info */}
       <div className="space-y-4 text-sm sm:text-base">
         {[
-            { label: "Company- ", value: singleJob?.company.name || "N/A" },
+            { label: "Company", value: singleJob?.company.name || "N/A" },
           { label: "Location", value: singleJob?.location || "N/A" },
           { label: "Description", value: singleJob?.description || "No description provided." },
           { label: "Experience", value: singleJob?.experience || "N/A" },

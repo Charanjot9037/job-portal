@@ -34,7 +34,7 @@ export async function POST(req, { params }) {
       return NextResponse.json({ message: "Job ID not provided", success: false }, { status: 400 });
     }
 
-    // Check if job exists
+
     const job = await Job.findById(jobid);
     if (!job) {
       return NextResponse.json({ message: "Job not found", success: false }, { status: 404 });
